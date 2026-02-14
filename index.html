@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -31,6 +32,7 @@
             box-shadow: 0 25px 80px rgba(255, 91, 168, 0.25), 0 10px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             text-align: center;
+            overflow: hidden;
         }
 
         .page {
@@ -288,6 +290,26 @@
             box-shadow: 0 8px 25px rgba(214, 51, 132, 0.4);
         }
 
+        .continue-btn {
+            background: linear-gradient(135deg, #ff70b8, #d63384);
+            color: white;
+            padding: 16px 45px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.4);
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 35px 20px;
@@ -306,6 +328,12 @@
             button { 
                 padding: 14px 30px; 
                 font-size: 1em; 
+            }
+            
+            .continue-btn {
+                padding: 14px 35px;
+                font-size: 1.1em;
+                margin-top: 30px;
             }
             
             .button-container {
@@ -385,7 +413,7 @@
                 Every single day.<br><br>
                 But here's the good news...
             </div>
-            <button class="yes-btn" onclick="goToPage(3)">What is it? ❤️</button>
+            <button class="continue-btn" onclick="goToPage(3)">What is it? ❤️</button>
         </div>
 
         <!-- Page 3: Countdown -->
@@ -416,7 +444,7 @@
                 A little surprise to count down the days <span class="heart">💝</span>
             </div>
             
-            <button class="yes-btn" onclick="goToPage(4)">Show me! ❤️</button>
+            <button class="continue-btn" onclick="goToPage(4)">Show me! ❤️</button>
         </div>
 
         <!-- Page 4: 8 Days of Love -->
@@ -554,12 +582,20 @@
             // Grow the Yes button
             growYesButton();
             
-            // Move the button randomly
-            const maxX = window.innerWidth > 600 ? 250 : 150;
-            const maxY = window.innerWidth > 600 ? 150 : 100;
-            const x = Math.random() * maxX * 2 - maxX;
-            const y = Math.random() * maxY * 2 - maxY;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
+            // Calculate safe movement boundaries based on viewport
+            const container = document.querySelector('.button-container');
+            const containerRect = container.getBoundingClientRect();
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            
+            // Safe boundaries (keeping button fully visible)
+            const maxXOffset = Math.min(containerRect.width / 2 - btnWidth / 2 - 20, window.innerWidth > 600 ? 200 : 120);
+            const maxYOffset = Math.min(60, 50); // Very limited vertical movement
+            
+            const x = (Math.random() * 2 - 1) * maxXOffset;
+            const y = (Math.random() * 2 - 1) * maxYOffset;
+            
+            btn.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         }
 
         function cantClickNo() {
@@ -577,12 +613,20 @@
             // Grow the Yes button
             growYesButton();
             
-            // Move it even further away
-            const maxX = window.innerWidth > 600 ? 300 : 180;
-            const maxY = window.innerWidth > 600 ? 200 : 120;
-            const x = Math.random() * maxX * 2 - maxX;
-            const y = Math.random() * maxY * 2 - maxY;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
+            // Calculate safe movement boundaries
+            const container = document.querySelector('.button-container');
+            const containerRect = container.getBoundingClientRect();
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            
+            // Safe boundaries
+            const maxXOffset = Math.min(containerRect.width / 2 - btnWidth / 2 - 20, window.innerWidth > 600 ? 250 : 140);
+            const maxYOffset = Math.min(70, 60);
+            
+            const x = (Math.random() * 2 - 1) * maxXOffset;
+            const y = (Math.random() * 2 - 1) * maxYOffset;
+            
+            btn.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
             
             // Check if we've reached the end
             if (moveCount >= maxAttempts) {
