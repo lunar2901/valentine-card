@@ -402,16 +402,53 @@
         @media (min-width: 601px) and (max-width: 1024px) {
             .container {
                 padding: 45px 35px;
+                max-width: 650px;
             }
             
             h1 {
                 font-size: 2.4em;
+            }
+            
+            .question {
+                font-size: 1.7em;
+            }
+            
+            button {
+                font-size: 1.1em;
+                padding: 15px 40px;
             }
         }
 
         @media (min-width: 1025px) {
             .container {
                 max-width: 700px;
+                padding: 50px;
+            }
+            
+            h1 {
+                font-size: 2.8em;
+            }
+            
+            .question {
+                font-size: 1.9em;
+            }
+            
+            button {
+                font-size: 1.2em;
+                padding: 16px 45px;
+            }
+            
+            .yes-btn.centered {
+                font-size: 1.2em;
+                padding: 16px 45px;
+            }
+            
+            .day-card {
+                padding: 32px 20px;
+            }
+            
+            .reason-text {
+                font-size: 1.3em;
             }
         }
     </style>
@@ -572,10 +609,10 @@
             if (moveCount >= maxAttempts) {
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
-                // Scale down on mobile for better fit
+                yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
+                // Scale appropriately for mobile and desktop to fit
                 const isMobile = window.innerWidth <= 600;
-                const finalScale = isMobile ? 1.4 : 2.5;
+                const finalScale = isMobile ? 1.3 : 2.0;
                 yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 yesBtn.style.left = '50%';
                 return;
@@ -583,7 +620,7 @@
             
             // Calculate scale - grows from 1.0 to max over 50 attempts
             const isMobile = window.innerWidth <= 600;
-            const maxScale = isMobile ? 1.4 : 2.5;
+            const maxScale = isMobile ? 1.3 : 2.0;
             const scale = 1 + (moveCount / 50) * (maxScale - 1);
             // Keep it at 35%/30% position while scaling
             yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
@@ -598,10 +635,10 @@
                 btn.style.display = 'none';
                 const yesBtn = document.querySelector('.yes-btn');
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
+                yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
                 yesBtn.style.left = '50%';
                 const isMobile = window.innerWidth <= 600;
-                const finalScale = isMobile ? 1.4 : 2.5;
+                const finalScale = isMobile ? 1.3 : 2.0;
                 yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 return;
             }
@@ -665,10 +702,10 @@
                     btn.style.display = 'none';
                     const yesBtn = document.querySelector('.yes-btn');
                     yesBtn.classList.add('centered');
-                    yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
+                    yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
                     yesBtn.style.left = '50%';
                     const isMobile = window.innerWidth <= 600;
-                    const finalScale = isMobile ? 1.4 : 2.5;
+                    const finalScale = isMobile ? 1.3 : 2.0;
                     yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 }, 500);
             }
