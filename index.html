@@ -277,6 +277,7 @@
             color: #d63384;
             line-height: 2;
             font-weight: 400;
+            text-align: left;
         }
 
         .back-btn {
@@ -323,7 +324,8 @@
             }
             
             .question { 
-                font-size: 1.3em; 
+                font-size: 1.2em;
+                line-height: 1.5;
             }
             
             button { 
@@ -408,10 +410,10 @@
         <!-- Page 1: Greeting -->
         <div id="page1" class="page active">
             <h1>Happy Valentine's Day<br>Cintaku, Oliver! <span class="heart">❤️</span></h1>
-            <div class="question">Do you miss me?</div>
+            <div class="question">It sucks we can't be together today... you must be missing me a little bit more today.</div>
             <div class="button-container">
-                <button class="yes-btn" onclick="goToPage(2)">Yes! ❤️</button>
-                <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="cantClickNo()">No</button>
+                <button class="yes-btn" onclick="goToPage(2)">You know it! ❤️</button>
+                <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="cantClickNo()">Not really</button>
             </div>
         </div>
 
@@ -460,7 +462,7 @@
 
         <!-- Page 4: 8 Days of Love -->
         <div id="page4" class="page">
-            <h1>8 Reasons I Love You <span class="heart">❤️</span></h1>
+            <h1>8 Reasons You're My Favorite Person<br><span style="font-size: 0.7em;">And Why This Is Our Forever</span> <span class="heart">❤️</span></h1>
             
             <div class="message" style="font-size: 1.1em;">
                 One reason unlocks each day until we're together.<br>
@@ -485,14 +487,14 @@
         const startDate = new Date('2026-02-14T00:00:00+01:00'); // Today as Day 1
 
         const loveReasons = [
-            "Your smile is the first thing I think about when I wake up, and it's what gets me through the day. Even from miles away, you brighten my world.",
-            "The way you listen to me - really listen - makes me feel like the most important person in the world. You hear not just my words, but my heart.",
-            "I love how you make me laugh, even on my worst days. Your sense of humor is my favorite medicine, and I'm addicted to it.",
-            "Your kindness and the way you care for others shows me the beautiful person you are inside. It makes me love you even more deeply.",
-            "I love how we can talk about everything and nothing for hours. Our conversations are my favorite place to be, no matter the topic.",
-            "The way you support my dreams and believe in me, even when I doubt myself. You're my biggest cheerleader and my safe place.",
-            "I love you for being exactly who you are - authentic, genuine, and perfectly imperfect. You don't have to be anyone else for me, just you. ❤️",
-            "The 8th reason? I'll tell you in person... 😊💕"
+            "Your hugs are pure magic, making the world disappear and somehow telling me that everything's going to be okay… plus they're basically impossible to resist. 🤗",
+            "Your smile (still) makes my heart skip a beat, and honestly, it's the main reason I keep falling for you every single day. 😊",
+            "You make me laugh at the absolute worst jokes, and somehow even my hardest days turn into the best ones just because of you. 😂",
+            "You inspire me to be my best self, while somehow loving me exactly as I am — flaws, quirks, and all. 💖",
+            "You've taken me to so many new places and shown me things I'd never imagined, and somehow even the most ordinary moments feel like adventures with you. ✨",
+            "You're always finding little ways to make life more fun, and I love that about you. ✨",
+            "No matter what happens, we always end up laughing, loving, and choosing each other over and over. And somehow it never gets old. 💕",
+            "Being with you doesn't just feel right… it feels like home, the kind I never want to leave. ❤️"
         ];
 
         // No button movement
@@ -560,7 +562,7 @@
             if (moveCount >= maxAttempts) {
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "Actually.... YES! 💕";
+                yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
                 // Scale down on mobile for better fit
                 const isMobile = window.innerWidth <= 600;
                 const finalScale = isMobile ? 1.8 : 2.5;
@@ -586,7 +588,7 @@
                 btn.style.display = 'none';
                 const yesBtn = document.querySelector('.yes-btn');
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "Actually.... YES! 💕";
+                yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
                 yesBtn.style.left = '50%';
                 const isMobile = window.innerWidth <= 600;
                 const finalScale = isMobile ? 1.8 : 2.5;
@@ -653,7 +655,7 @@
                     btn.style.display = 'none';
                     const yesBtn = document.querySelector('.yes-btn');
                     yesBtn.classList.add('centered');
-                    yesBtn.textContent = "Actually.... YES! 💕";
+                    yesBtn.textContent = "OFF COURSE BABYYYY!!!! ❤️❤️❤️";
                     yesBtn.style.left = '50%';
                     const isMobile = window.innerWidth <= 600;
                     const finalScale = isMobile ? 1.8 : 2.5;
@@ -705,22 +707,45 @@
             const now = new Date();
             const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             
+            // Get opened days from localStorage
+            let openedDays = [];
+            try {
+                const stored = localStorage.getItem('openedDays');
+                if (stored) {
+                    openedDays = JSON.parse(stored);
+                }
+            } catch (e) {
+                console.log('Could not load opened days');
+            }
+            
             for (let i = 1; i <= 8; i++) {
                 const dayDate = new Date(startDate);
                 dayDate.setDate(startDate.getDate() + (i - 1));
                 
                 const isUnlocked = currentDate >= dayDate;
-                const isPastDate = currentDate > dayDate;
+                const wasOpened = openedDays.includes(i);
+                const canOpen = isUnlocked || wasOpened;
                 
                 const card = document.createElement('div');
-                card.className = `day-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+                card.className = `day-card ${canOpen ? 'unlocked' : 'locked'}`;
                 
-                if (isUnlocked) {
-                    card.onclick = () => showDay(i);
+                if (canOpen) {
+                    card.onclick = () => {
+                        showDay(i);
+                        // Mark as opened
+                        if (!openedDays.includes(i)) {
+                            openedDays.push(i);
+                            try {
+                                localStorage.setItem('openedDays', JSON.stringify(openedDays));
+                            } catch (e) {
+                                console.log('Could not save opened days');
+                            }
+                        }
+                    };
                     card.innerHTML = `
                         <div class="day-number">Day ${i}</div>
-                        <div class="day-label">${isPastDate ? 'Opened' : 'Open Now!'}</div>
-                        <div class="lock-icon">${isPastDate ? '✓' : '💝'}</div>
+                        <div class="day-label">${wasOpened ? 'Opened ✓' : 'Open Now!'}</div>
+                        <div class="lock-icon">${wasOpened ? '✓' : '💝'}</div>
                     `;
                 } else {
                     card.innerHTML = `
