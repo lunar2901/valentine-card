@@ -76,6 +76,7 @@
             color: #d63384;
             margin: 40px 0;
             font-weight: 500;
+            line-height: 1.4;
         }
 
         .button-container {
@@ -352,12 +353,13 @@
                 padding: 12px 20px;
             }
             
-            /* When OF COURSE BABYYYY appears on mobile, make it wrap nicely */
+            /* When OF COURSE BABYYYY appears on mobile, make it fill the width */
             .yes-btn.centered {
-                font-size: 0.75em;
-                padding: 12px 20px;
+                font-size: 0.9em;
+                padding: 16px 25px;
                 white-space: normal;
-                max-width: 85%;
+                max-width: 95%;
+                width: 95%;
                 line-height: 1.4;
                 word-break: break-word;
             }
@@ -431,7 +433,8 @@
             }
             
             .question {
-                font-size: 1.9em;
+                font-size: 1.75em;
+                line-height: 1.5;
             }
             
             button {
@@ -459,7 +462,7 @@
         <!-- Page 1: Greeting -->
         <div id="page1" class="page active">
             <h1>Happy Valentine's Day<br>Cintaku, Oliver! <span class="heart">❤️</span></h1>
-            <div class="question">It sucks we can't be together today... you must be missing me a little bit more today.</div>
+            <div class="question">It sucks we can't be together today...<br>you must be missing me a little bit more today.</div>
             <div class="button-container">
                 <button class="yes-btn" onclick="goToPage(2)">You know it! ❤️</button>
                 <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="cantClickNo()">Not really</button>
@@ -610,10 +613,10 @@
             if (moveCount >= maxAttempts) {
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
+                yesBtn.textContent = "OF COURSE BABYYY!!!! ❤️❤️❤️";
                 // Scale appropriately for mobile and desktop to fit
                 const isMobile = window.innerWidth <= 600;
-                const finalScale = isMobile ? 1.5 : 2.0;
+                const finalScale = isMobile ? 1.8 : 2.0;
                 yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 yesBtn.style.left = '50%';
                 return;
@@ -621,7 +624,7 @@
             
             // Calculate scale - grows from 1.0 to max over 50 attempts
             const isMobile = window.innerWidth <= 600;
-            const maxScale = isMobile ? 1.5 : 2.0;
+            const maxScale = isMobile ? 1.8 : 2.0;
             const scale = 1 + (moveCount / 50) * (maxScale - 1);
             // Keep it at 30% position while scaling
             yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
@@ -636,10 +639,10 @@
                 btn.style.display = 'none';
                 const yesBtn = document.querySelector('.yes-btn');
                 yesBtn.classList.add('centered');
-                yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
+                yesBtn.textContent = "OF COURSE BABYYY!!!! ❤️❤️❤️";
                 yesBtn.style.left = '50%';
                 const isMobile = window.innerWidth <= 600;
-                const finalScale = isMobile ? 1.5 : 2.0;
+                const finalScale = isMobile ? 1.8 : 2.0;
                 yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 return;
             }
@@ -703,10 +706,10 @@
                     btn.style.display = 'none';
                     const yesBtn = document.querySelector('.yes-btn');
                     yesBtn.classList.add('centered');
-                    yesBtn.textContent = "OF COURSE BABYYYY!!!! ❤️❤️";
+                    yesBtn.textContent = "OF COURSE BABYYY!!!! ❤️❤️❤️";
                     yesBtn.style.left = '50%';
                     const isMobile = window.innerWidth <= 600;
-                    const finalScale = isMobile ? 1.5 : 2.0;
+                    const finalScale = isMobile ? 1.8 : 2.0;
                     yesBtn.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
                 }, 500);
             }
